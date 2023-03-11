@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
+import Dashboard from "./Dashboard";
+import LoadingBar from "react-redux-loading-bar";
 
 function App(props) {
   useEffect(() => {
@@ -8,8 +10,10 @@ function App(props) {
   }, []);
 
   return (
-    <div>Starter Code</div>
-  );
+    <div>
+      <LoadingBar />
+      {props.loading === true ? null : <Dashboard />}
+    </div>  );
 }
 
 export default connect()(App);
