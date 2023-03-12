@@ -2,8 +2,6 @@ import { connect } from "react-redux";
 import Question from "./Question";
 
 const Dashboard = (props) => {
-  console.log(props.questions);
-
   return (
     <div id="page-wrapper">
       {/* Header   */}
@@ -40,9 +38,13 @@ const Dashboard = (props) => {
                   <h2>New Questions</h2>
                 </header>
                 <div className="row">
-                  {props.questions.map((question) => (
-                    <Question question={question} key={question.id} />
-                  ))}
+                  {props.questions
+                    .filter((question) =>
+                      ! props.answeredQuestions.includes(question.id)
+                    )
+                    .map((question) => (
+                      <Question question={question} key={question.id} />
+                    ))}
                 </div>
               </section>
             </div>
@@ -54,7 +56,14 @@ const Dashboard = (props) => {
                   <h2>Done</h2>
                 </header>
                 <div className="row">
-                  {/* TODO */}
+                  {" "}
+                  {props.questions
+                    .filter((question) =>
+                      props.answeredQuestions.includes(question.id)
+                    )
+                    .map((question) => (
+                      <Question question={question} key={question.id} />
+                    ))}
                 </div>
               </section>
             </div>
@@ -84,13 +93,19 @@ const Dashboard = (props) => {
   );
 };
 
-const mapStateToProps = ({ questions }) => {
+const mapStateToProps = ({ authedUser, users, questions }) => {
+  const answeredQuestions = Object.keys(users[authedUser].answers).map(
+    (k, v) => {
+      return k;
+    }
+  );
+
   return {
     questions: Object.keys(questions).map((k, v) => {
       return questions[k];
-    })
-  }
+    }),
+    answeredQuestions: answeredQuestions,
+  };
 };
 
-// export default connect(mapStateToProps)(Dashboard);
 export default connect(mapStateToProps)(Dashboard);
