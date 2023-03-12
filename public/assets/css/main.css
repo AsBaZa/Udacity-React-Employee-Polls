@@ -1694,6 +1694,10 @@ input, select, textarea {
 		outline: 0;
 	}
 
+	img {
+		border-radius: 50%;
+	}
+
 		.image img {
 			display: block;
 			width: 100%;
@@ -1815,12 +1819,13 @@ input, select, textarea {
 	ul.dates {
 		list-style: none;
 		padding-left: 0;
+		margin-bottom: 0;
 	}
 
 		ul.dates li {
 			position: relative;
 			border-top: solid 1px #ddd;
-			padding: 1.3em 0 1.3em 6.75em;
+			padding: 1.3em 0 0em 6.75em;
 		}
 
 		ul.dates .date {
@@ -1828,7 +1833,6 @@ input, select, textarea {
 			position: absolute;
 			left: 0;
 			top: 1.3em;
-			background-color: #d52349;
 			height: 3.5em;
 			text-align: center;
 			color: #fff;
@@ -1837,16 +1841,6 @@ input, select, textarea {
 			border-bottom-left-radius: 5px;
 			padding: 0.5em 0.75em 0 1em;
 		}
-
-			ul.dates .date:after {
-				content: '';
-				position: absolute;
-				bottom: 0;
-				right: -1.2em;
-				border-left: solid 1.25em #d52349;
-				border-top: solid 1.8em transparent;
-				border-bottom: solid 1.8em transparent;
-			}
 
 			ul.dates .date strong {
 				display: block;

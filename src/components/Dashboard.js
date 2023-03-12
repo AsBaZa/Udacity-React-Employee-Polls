@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import Question from "./Question";
+import Leaderboard from "./Leaderboard";
 
 const Dashboard = (props) => {
   return (
@@ -35,12 +36,17 @@ const Dashboard = (props) => {
               {/* New Questions */}
               <section>
                 <header className="major">
+                  <h2>Leaderboard</h2>
+                </header>
+                <Leaderboard />
+                <header className="major">
                   <h2>New Questions</h2>
                 </header>
                 <div className="row">
                   {props.questions
-                    .filter((question) =>
-                      ! props.answeredQuestions.includes(question.id)
+                    .filter(
+                      (question) =>
+                        !props.answeredQuestions.includes(question.id)
                     )
                     .map((question) => (
                       <Question question={question} key={question.id} />
