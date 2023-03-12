@@ -6,11 +6,6 @@ const Summary = (props) => {
   return (
     <tr>
       <td>
-        {/* <img src={`${process.env.PUBLIC_URL}/avatars/${avatarURL}`} alt={`Avatar of ${name}`} width="40" height="40"/>
-        <div><b style={{ fontWeight: "bold" }}>{name}</b>
-        <br></br>
-        {id}
-        </div> */}
         <ul className="dates">
           <li>
             <span className="date"><img src={`${process.env.PUBLIC_URL}/avatars/${avatarURL}`} alt={`Avatar of ${name}`} width="40" height="40"/></span>
