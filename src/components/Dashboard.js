@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Question from "./Question";
 import Leaderboard from "./Leaderboard";
+import Poll from "./Poll";
 
 const Dashboard = (props) => {
   return (
@@ -9,7 +10,7 @@ const Dashboard = (props) => {
       <section id="header">
         {/* Logo */}
         <h1>
-          <a href="#">Dopetrope</a>
+          <a href="#">Employee Polls</a>
         </h1>
 
         {/* Nav */}
@@ -33,6 +34,7 @@ const Dashboard = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-12">
+              <Poll question={props.question} user={props.users[props.question.author]}/>
               {/* New Questions */}
               <section>
                 <header className="major">
@@ -100,17 +102,19 @@ const Dashboard = (props) => {
 };
 
 const mapStateToProps = ({ authedUser, users, questions }) => {
-  const answeredQuestions = Object.keys(users[authedUser].answers).map(
-    (k, v) => {
-      return k;
-    }
-  );
+  questions = Object.keys(questions).map((k, v) => {
+    return questions[k];
+  });
+  const answeredQuestions = Object.keys(users[authedUser].answers).map((k, v) => {
+    return k;
+  })
 
   return {
-    questions: Object.keys(questions).map((k, v) => {
-      return questions[k];
-    }),
+    questions: questions,
+    question: questions[0],
     answeredQuestions: answeredQuestions,
+    authedUser: authedUser,
+    users: users
   };
 };
 
