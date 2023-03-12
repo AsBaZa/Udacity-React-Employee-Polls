@@ -13,7 +13,12 @@ function App(props) {
     <div>
       <LoadingBar />
       {props.loading === true ? null : <Dashboard />}
-    </div>  );
+    </div>
+  );
 }
 
-export default connect()(App);
+const mapStateToProps = ({ authedUser }) => ({
+  loading: authedUser === null
+});
+
+export default connect(mapStateToProps)(App);
