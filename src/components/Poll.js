@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { formatDate } from "../utils/helpers";
+import Option from "./Option";
 
 const Poll = (props) => {
   const { id, author, timestamp, optionOne, optionTwo } = props.question;
@@ -26,40 +26,8 @@ const Poll = (props) => {
         <h2>Would you rather</h2>
       </header>
       <div className="row">
-        <div className="col-6 col-12-small">
-          <section className="box">
-            <header>
-              <h3>{optionOne.text}</h3>
-              <p>{formatDate(timestamp)}</p>
-            </header>
-            <footer>
-              <ul className="actions">
-                <li>
-                  <a href="#" className="button icon solid fa-file-alt">
-                    Select
-                  </a>
-                </li>
-              </ul>
-            </footer>
-          </section>
-        </div>
-        <div className="col-6 col-12-small">
-          <section className="box">
-            <header>
-              <h3>{optionTwo.text}</h3>
-              <p>{formatDate(timestamp)}</p>
-            </header>
-            <footer>
-              <ul className="actions">
-                <li>
-                  <a href="#" className="button icon solid fa-file-alt">
-                    Select
-                  </a>
-                </li>
-              </ul>
-            </footer>
-          </section>
-        </div>
+        <Option text={optionOne.text} timestamp={timestamp} />
+        <Option text={optionTwo.text} timestamp={timestamp} />
       </div>
     </section>
   );
