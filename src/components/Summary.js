@@ -20,4 +20,10 @@ const Summary = (props) => {
   );
 };
 
-export default connect()(Summary);
+const mapStateToProps = ({ users }) => {
+  return {
+    users: users
+  };
+};
+
+export default connect(mapStateToProps)(Summary);

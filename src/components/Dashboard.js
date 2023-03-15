@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import Question from "./Question";
 import Leaderboard from "./Leaderboard";
 import Poll from "./Poll";
+import NewPoll from "./NewPoll";
 
 const Dashboard = (props) => {
   return (
@@ -34,6 +35,7 @@ const Dashboard = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-12">
+              <NewPoll />
               <Poll question={props.question} user={props.users[props.question.author]}/>
               {/* New Questions */}
               <section>
