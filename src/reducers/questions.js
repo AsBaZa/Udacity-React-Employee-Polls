@@ -26,13 +26,13 @@ export default function questions(state = {}, action) {
           [answer]: {
             ...state[action.qid][answer],
             votes: state[action.qid][answer].votes
-              .filter((user) => user != action.authedUser)
+              .filter((user) => user !== action.authedUser)
               .concat([action.authedUser]),
           },
           [oppositeAnswer]: {
             ...state[action.qid][oppositeAnswer],
             votes: state[action.qid][oppositeAnswer].votes.filter(
-              (user) => user != action.authedUser
+              (user) => user !== action.authedUser
             ),
           },
         },
