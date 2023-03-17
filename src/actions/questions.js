@@ -1,9 +1,10 @@
-import { saveQuestion } from "../utils/api";
+import { saveQuestion, saveQuestionAnswer } from "../utils/api";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
 import { handleAddCreatedQuestions } from "../actions/users";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_QUESTION = "ADD_QUESTION";
+export const ADD_QUESTION_ANSWER = "ADD_QUESTION_ANSWER";
 
 const addQuestion = (poll) => {
   return {
@@ -27,6 +28,28 @@ export const handleAddQuestion = (optionOneText, optionTwoText) => {
         dispatch(handleAddCreatedQuestions(poll));
       })
       .then(() => dispatch(hideLoading()));
+  };
+};
+
+const addQuestionAnswer = ({authedUser, qid, answer}) => {
+  return {
+    type: ADD_QUESTION_ANSWER,
+    authedUser,
+    qid,
+    answer
+  };
+};
+
+export const handleAddQuestionAnswer = (id, option) => {
+  return (dispatch, getState) => {
+    const { authedUser } = getState();
+    dispatch(addQuestionAnswer({ authedUser, qid: id, answer: option }));
+    
+    return saveQuestionAnswer({ authedUser, qid: id, answer: option }).catch((e) => {
+      console.warn("Error in handleToggleTweet: ", e);
+      dispatch(addQuestionAnswer({ authedUser, qid: id, answer: option }));
+      alert("There was an error liking the tweet. Try again.");
+    });
   };
 };
 

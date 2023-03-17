@@ -29,13 +29,6 @@ const Question = (props) => {
     </div>
   );
   }
-
-  const mapStateToProps = ({ questions }) => {
-    console.log(questions);
-    return {
-      questions: questions
-    }
-  };
   
   // export default connect(mapStateToProps)(Dashboard);
   export default connect()(Question);

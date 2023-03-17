@@ -15,7 +15,7 @@ const Poll = (props) => {
           <div className="col-4 col-12-medium"></div>
           <div className="col-4 col-12-medium">
             <section className="middle">
-              <img src={`${process.env.PUBLIC_URL}/avatars/${props.user.avatarURL}`} alt={`Avatar of ${props.user.name}`} width="100%" height="100%"/>
+              <img src={`${process.env.PUBLIC_URL}/avatars/${props.user.avatarURL}`} alt={`Avatar of ${props.user.name}`} width="50%" height="50%"/>
             </section>
           </div>
           <div className="col-4 col-12-medium"></div>
@@ -26,8 +26,8 @@ const Poll = (props) => {
         <h2>Would you rather</h2>
       </header>
       <div className="row">
-        <Option text={optionOne.text} timestamp={timestamp} />
-        <Option text={optionTwo.text} timestamp={timestamp} />
+        <Option id={id} text={optionOne.text} timestamp={timestamp} option={"optionOne"} />
+        <Option id={id} text={optionTwo.text} timestamp={timestamp} option={"optionTwo"}/>
       </div>
     </section>
   );

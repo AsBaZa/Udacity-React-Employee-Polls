@@ -1,4 +1,8 @@
-import { ADD_CREATED_QUESTIONS, RECEIVE_USERS } from "../actions/users";
+import {
+  ADD_CREATED_QUESTIONS,
+  ADD_USER_ANSWER,
+  RECEIVE_USERS,
+} from "../actions/users";
 
 export default function users(state = {}, action) {
   switch (action.type) {
@@ -8,15 +12,23 @@ export default function users(state = {}, action) {
         ...action.users,
       };
     case ADD_CREATED_QUESTIONS:
-      let questions = {
+      return {
+        ...state,
         [action.author]: {
           ...state[action.author],
           questions: state[action.author].questions.concat([action.poll.id]),
         },
       };
+    case ADD_USER_ANSWER:
       return {
         ...state,
-        ...questions,
+        [action.authedUser]: {
+          ...state[action.authedUser],
+          answers: {
+            ...state[action.authedUser].answers,
+            [action.qid]: action.answer,
+          },
+        },
       };
     default:
       return state;
