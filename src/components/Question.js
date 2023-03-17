@@ -1,5 +1,18 @@
+import { Component } from "react";
 import { connect } from "react-redux";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { formatDate } from "../utils/helpers";
+
+const withRouter = (Component) => {
+  const ComponentWithRouterProp = (props) => {
+    let location = useLocation();
+    let navigate = useNavigate();
+    let params = useParams();
+    return <Component {...props} router={{ location, navigate, params }} />;
+  };
+
+  return ComponentWithRouterProp;
+};
 
 const Question = (props) => {
   const { id, author, timestamp, optionOne, optionTwo } = props.question;
@@ -7,28 +20,22 @@ const Question = (props) => {
   return (
     <div className="col-4 col-6-medium col-12-small">
       <section className="box">
-        <a href="#" className="image featured">
-          <img src="images/pic02.jpg" alt="" />
-        </a>
         <header>
           <h3>{author}</h3>
         </header>
-        <p>
-          {formatDate(timestamp)}
-        </p>
+        <p>{formatDate(timestamp)}</p>
         <footer>
           <ul className="actions">
             <li>
-              <a href="#" className="button alt">
+              <Link to={`/poll/${props.questionId}`} className="button alt">
                 Show
-              </a>
+              </Link>
             </li>
           </ul>
         </footer>
       </section>
     </div>
   );
-  }
-  
-  // export default connect(mapStateToProps)(Dashboard);
-  export default connect()(Question);
+};
+
+export default withRouter(connect()(Question));

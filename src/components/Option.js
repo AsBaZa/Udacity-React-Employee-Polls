@@ -2,14 +2,18 @@ import { connect } from "react-redux";
 import { formatDate } from "../utils/helpers";
 import { handleAddQuestionAnswer } from "../actions/questions";
 import { handleAddUserAnswer } from "../actions/users";
+import { useNavigate } from "react-router-dom";
 
 const Option = ({dispatch, id, option, text, timestamp}) => {
+  const navigate = useNavigate();
 
   const handleSelectOption = (e) => {
     e.preventDefault();
 
     dispatch(handleAddQuestionAnswer(id, option));
     dispatch(handleAddUserAnswer(id, option));
+
+    navigate("/");
   };
 
   return (
