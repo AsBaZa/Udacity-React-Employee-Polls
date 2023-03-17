@@ -11,23 +11,20 @@ const Nav = () => {
   return (
     <nav id="nav">
       <ul>
-        <li
-          className={navState === "home" ? "current" : ""}
-          onClick={() => handleClick("home")}
-        >
-          <Link to="/">Home</Link>
+        <li className={navState === "home" ? "current" : ""}>
+          <Link to="/" onClick={() => handleClick("home")}>
+            Home
+          </Link>
         </li>
-        <li
-          className={navState === "leaderboard" ? "current" : ""}
-          onClick={() => handleClick("leaderboard")}
-        >
-          <Link to="/leaderboard">Leaderboard</Link>
+        <li className={navState === "leaderboard" ? "current" : ""}>
+          <Link to="/leaderboard" onClick={() => handleClick("leaderboard")}>
+            Leaderboard
+          </Link>
         </li>
-        <li
-          className={navState === "new" ? "current" : ""}
-          onClick={() => handleClick("new")}
-        >
-          <Link to="/new">New</Link>
+        <li className={navState === "new" ? "current" : ""}>
+          <Link to="/new" onClick={() => handleClick("new")}>
+            New
+          </Link>
         </li>
       </ul>
     </nav>

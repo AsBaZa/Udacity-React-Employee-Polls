@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { connect } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { formatDate } from "../utils/helpers";
@@ -15,7 +14,7 @@ const withRouter = (Component) => {
 };
 
 const Question = (props) => {
-  const { id, author, timestamp, optionOne, optionTwo } = props.question;
+  const { author, timestamp } = props.question;
 
   return (
     <div className="col-4 col-6-medium col-12-small">
