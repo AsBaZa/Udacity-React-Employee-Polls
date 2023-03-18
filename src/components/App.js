@@ -29,13 +29,18 @@ function App(props) {
             <Nav />
           </section>
           <section id="main">
+          <div className="container">
+
             <Routes>
               <Route path="/" exact element={<Dashboard />} />
               <Route path="/new" exact element={<NewPoll />} />
               <Route path="/leaderboard" exact element={<Leaderboard />} />
               <Route path="/poll/:questionId" element={<Poll />} />
             </Routes>
+            </div>
+
           </section>
+
 
           {/* Footer */}
           <section id="footer">
@@ -56,6 +61,7 @@ function App(props) {
             </div>
           </section>
         </div>
+
       )}
     </Fragment>
   );
