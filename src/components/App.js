@@ -11,7 +11,23 @@ import Poll from "./Poll";
 
 function App(props) {
   useEffect(() => {
-    props.dispatch(handleInitialData());
+    props.dispatch(handleInitialData()).then(() => {
+      const script1 = document.createElement("script");
+      script1.src = "assets/js/util.js";
+      script1.async = true;
+      document.body.appendChild(script1);
+
+      const script2 = document.createElement("script");
+      script2.src = "assets/js/main.js";
+      script2.async = true;
+      document.body.appendChild(script2);
+
+      return () => {
+        // clean up the script when the component in unmounted
+        document.body.removeChild(script1);
+        document.body.removeChild(script2);
+      };
+    });
   }, []);
 
   return (
