@@ -43,6 +43,7 @@ const NewPoll = ({ dispatch, id }) => {
               placeholder="Option One"
               value={optionOneText}
               onChange={handleChangeOptionOne}
+              type="text"
             />
           </div>
           <div className="col-6 col-12-small center">
@@ -51,6 +52,7 @@ const NewPoll = ({ dispatch, id }) => {
               placeholder="Option Two"
               value={optionTwoText}
               onChange={handleChangeOptionTwo}
+              type="text"
             />
           </div>
           <div className="col-4 col-12-small center"></div>
