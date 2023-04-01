@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { handleAddQuestion } from "../actions/questions";
 import { useNavigate } from "react-router-dom";
 import { handleLogin } from "../actions/authedUser";
 
@@ -20,8 +19,6 @@ const Login = ({ dispatch, users }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(users);
-    console.log(users[user]);
     if (users[user] === undefined) {
       alert("The User/Password is not correct!");
     } else {
@@ -52,6 +49,7 @@ const Login = ({ dispatch, users }) => {
               value={user}
               onChange={handleChangeUser}
               type="text"
+              data-testid="username"
             />
           </div>
           <div className="col-6 col-12-small center">
@@ -61,6 +59,7 @@ const Login = ({ dispatch, users }) => {
               value={password}
               onChange={handleChangePassword}
               type="password"
+              data-testid="password"
             />
           </div>
           <div className="col-4 col-12-small center"></div>

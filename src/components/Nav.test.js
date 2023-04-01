@@ -1,13 +1,13 @@
 import { render } from "@testing-library/react";
 import Nav from "./Nav";
-import { BrowserRouter as Router } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 
 describe("Nav", () => {
   it("will match snapshot", async () => {
     const component = render(
-      <Router>
+      <MemoryRouter>
         <Nav />
-      </Router>
+      </MemoryRouter>
     );
     expect(component).toMatchSnapshot();
   });
