@@ -68,6 +68,7 @@ const Login = ({ dispatch, users }) => {
               className="center"
               type="submit"
               disabled={user === "" || password === ""}
+              data-testid="submit-button"
             >
               Submit
             </button>
