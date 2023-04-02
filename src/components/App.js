@@ -21,17 +21,17 @@ function App(props) {
     });
   }, []);
 
-  if (progress === 100) {
-    const script1 = document.createElement("script");
-    script1.src = "assets/js/util.js";
-    script1.async = true;
-    document.body.appendChild(script1);
+  // if (progress === 100) {
+  //   const script1 = document.createElement("script");
+  //   script1.src = "assets/js/util.js";
+  //   script1.async = true;
+  //   document.body.appendChild(script1);
 
-    const script2 = document.createElement("script");
-    script2.src = "assets/js/main.js";
-    script2.async = true;
-    document.body.appendChild(script2);
-  }
+  //   const script2 = document.createElement("script");
+  //   script2.src = "assets/js/main.js";
+  //   script2.async = true;
+  //   document.body.appendChild(script2);
+  // }
 
   const handleLogout = (e) => {
     e.preventDefault();
