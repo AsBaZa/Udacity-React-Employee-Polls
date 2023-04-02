@@ -23,22 +23,6 @@ function App(props) {
     });
   }, []);
 
-  const loadScripts = () => {
-    var el = document.getElementById("titleBar");
-
-    if (el === null) {
-      const script1 = document.createElement("script");
-      script1.src = "assets/js/util.js";
-      script1.async = true;
-      document.body.appendChild(script1);
-
-      const script2 = document.createElement("script");
-      script2.src = "assets/js/main.js";
-      script2.async = true;
-      document.body.appendChild(script2);
-    }
-  };
-
   const showNavPanel = () => {
     const navPanelClassName = "navPanel-visible";
     modal
@@ -148,9 +132,6 @@ function App(props) {
         </section>
       </div>
 
-      {/* {progress === 100 ? loadScripts() : null} */}
-      {/* {progress === 100 ? <script src="assets/js/utils.js"></script> : null}
-      {progress === 100 ? <script src="assets/js/main.js"></script> : null} */}
       <div id="titleBar">
         <a href="#navPanel" className="toggle" onClick={showNavPanel}></a>
       </div>
