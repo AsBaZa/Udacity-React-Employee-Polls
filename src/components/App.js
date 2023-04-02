@@ -69,16 +69,38 @@ function App(props) {
                   }
                 />
                 <Route
+                  path="/new"
+                  element={
+                    props.loggedIn ? (
+                      <NewPoll />
+                    ) : (
+                      <Navigate replace to="/login" />
+                    )
+                  }
+                />
+                <Route
+                  path="/leaderboard"
+                  element={
+                    props.loggedIn ? (
+                      <Leaderboard />
+                    ) : (
+                      <Navigate replace to="/login" />
+                    )
+                  }
+                />
+                <Route
+                  path="/poll/:questionId"
+                  element={
+                    props.loggedIn ? <Poll /> : <Navigate replace to="/login" />
+                  }
+                />{" "}
+                <Route
                   path="/login"
                   exact
                   element={
                     props.loggedIn ? <Navigate replace to="/" /> : <Login />
                   }
                 />
-                <Route path="/" exact element={<Dashboard />} />
-                <Route path="/new" exact element={<NewPoll />} />
-                <Route path="/leaderboard" exact element={<Leaderboard />} />
-                <Route path="/poll/:questionId" element={<Poll />} />
               </Routes>
             )}
           </div>

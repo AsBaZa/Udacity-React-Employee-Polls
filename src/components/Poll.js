@@ -1,6 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import Option from "./Option";
+import { setNav } from "../actions/nav";
 
 const withRouter = (Component) => {
   const ComponentWithRouterProp = (props) => {
@@ -17,6 +18,7 @@ const Poll = (props) => {
   const { id, author, timestamp, optionOne, optionTwo } =
     props.questions[props.questionId];
   const user = props.users[author];
+  props.dispatch(setNav("poll"));
 
   return (
     <div className="row">

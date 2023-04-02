@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { handleAddQuestion } from "../actions/questions";
+import { setNav } from "../actions/nav";
 import { useNavigate } from "react-router-dom";
 
 const NewPoll = ({ dispatch, id }) => {
@@ -24,7 +25,7 @@ const NewPoll = ({ dispatch, id }) => {
     dispatch(handleAddQuestion(optionOneText, optionTwoText));
     setOptionOneText("");
     setOptionTwoText("");
-
+    dispatch(setNav("home"));
     navigate("/");
   };
 
@@ -57,9 +58,13 @@ const NewPoll = ({ dispatch, id }) => {
           </div>
           <div className="col-4 col-12-small center"></div>
           <div className="col-4 col-12-small center">
-          <button className="center" type="submit" disabled={optionOneText === "" || optionTwoText === ""}>
-            Submit
-          </button>
+            <button
+              className="center"
+              type="submit"
+              disabled={optionOneText === "" || optionTwoText === ""}
+            >
+              Submit
+            </button>
           </div>
           <div className="col-4 col-12-small center"></div>
         </div>

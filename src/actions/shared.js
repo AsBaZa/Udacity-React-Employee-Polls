@@ -2,6 +2,7 @@ import { getInitialData } from "../utils/api";
 import { receiveUsers } from "./users";
 import { receiveQuestions } from "./questions";
 import { setAuthedUser } from "./authedUser";
+import { setNav } from "./nav";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 const AUTHED_ID = null;
@@ -13,6 +14,7 @@ export function handleInitialData() {
       dispatch(receiveUsers(users));
       dispatch(receiveQuestions(questions));
       dispatch(setAuthedUser(AUTHED_ID));
+      dispatch(setNav(AUTHED_ID === null ? "login" : "home"));
       dispatch(hideLoading());
     });
   };
