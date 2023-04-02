@@ -39,7 +39,11 @@ const Dashboard = (props) => {
                 props.answeredQuestions.includes(question.id)
               )
               .map((question) => (
-                <Question question={question} key={question.id} />
+                <Question
+                  question={question}
+                  key={question.id}
+                  questionId={question.id}
+                />
               ))}
           </div>
         </section>
@@ -63,7 +67,6 @@ const mapStateToProps = ({ authedUser, users, questions }) => {
     question: questions[0],
     answeredQuestions: answeredQuestions,
     authedUser: authedUser,
-    questionId: "8xf0y6ziyjabvozdd253nd",
     users: users,
   };
 };
