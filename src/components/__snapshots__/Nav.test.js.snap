@@ -10,7 +10,7 @@ Object {
       >
         <ul>
           <li
-            class="current"
+            class=""
           >
             <a
               href="/"
@@ -46,7 +46,7 @@ Object {
     >
       <ul>
         <li
-          class="current"
+          class=""
         >
           <a
             href="/"

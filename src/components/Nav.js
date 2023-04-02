@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
- import { connect } from "react-redux";
+import { connect } from "react-redux";
 import { setNav } from "../actions/nav";
 
 const Nav = ({ dispatch, authedUser, nav }) => {
   const handleClick = (name) => {
-    if (authedUser === null) {
-      dispatch(setNav("login"));
-    } else {
-      dispatch(setNav(name));
-    }
+    authedUser === null ? dispatch(setNav("login")) : dispatch(setNav(name));
   };
 
   return (

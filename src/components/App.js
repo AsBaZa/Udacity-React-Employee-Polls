@@ -2,6 +2,7 @@ import { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import { setAuthedUser } from "../actions/authedUser";
+import { setNav } from "../actions/nav";
 import { useState } from "react";
 import Dashboard from "./Dashboard";
 import LoadingBar from "react-redux-loading-bar";
@@ -14,6 +15,7 @@ import Login from "./Login";
 
 function App(props) {
   const [progress, setProgress] = useState(0);
+  const [modal, showModal] = useState(false);
 
   useEffect(() => {
     props.dispatch(handleInitialData()).then(() => {
@@ -21,21 +23,34 @@ function App(props) {
     });
   }, []);
 
-  // if (progress === 100) {
-  //   const script1 = document.createElement("script");
-  //   script1.src = "assets/js/util.js";
-  //   script1.async = true;
-  //   document.body.appendChild(script1);
+  const loadScripts = () => {
+    var el = document.getElementById("titleBar");
 
-  //   const script2 = document.createElement("script");
-  //   script2.src = "assets/js/main.js";
-  //   script2.async = true;
-  //   document.body.appendChild(script2);
-  // }
+    if (el === null) {
+      const script1 = document.createElement("script");
+      script1.src = "assets/js/util.js";
+      script1.async = true;
+      document.body.appendChild(script1);
+
+      const script2 = document.createElement("script");
+      script2.src = "assets/js/main.js";
+      script2.async = true;
+      document.body.appendChild(script2);
+    }
+  };
+
+  const showNavPanel = () => {
+    const navPanelClassName = "navPanel-visible";
+    modal
+      ? document.body.classList.remove(navPanelClassName)
+      : document.body.classList.add(navPanelClassName);
+    showModal(!modal);
+  };
 
   const handleLogout = (e) => {
     e.preventDefault();
 
+    props.dispatch(setNav("login"));
     props.dispatch(setAuthedUser(null));
   };
 
@@ -131,6 +146,42 @@ function App(props) {
             </div>
           </div>
         </section>
+      </div>
+
+      {/* {progress === 100 ? loadScripts() : null} */}
+      {/* {progress === 100 ? <script src="assets/js/utils.js"></script> : null}
+      {progress === 100 ? <script src="assets/js/main.js"></script> : null} */}
+      <div id="titleBar">
+        <a href="#navPanel" className="toggle" onClick={showNavPanel}></a>
+      </div>
+
+      <div id="navPanel">
+        <nav>
+          <Link
+            to="/"
+            className="link depth-0"
+            style={{ WebkitTapHighlightColor: "rgba(0, 0, 0, 0)" }}
+            onClick={showNavPanel}
+          >
+            <span className="indent-0"></span>Home
+          </Link>
+          <Link
+            to="/leaderboard"
+            className="link depth-0"
+            style={{ WebkitTapHighlightColor: "rgba(0, 0, 0, 0)" }}
+            onClick={showNavPanel}
+          >
+            <span className="indent-0"></span>Leaderboard
+          </Link>
+          <Link
+            to="/new"
+            className="link depth-0"
+            style={{ WebkitTapHighlightColor: "rgba(0, 0, 0, 0)" }}
+            onClick={showNavPanel}
+          >
+            <span className="indent-0"></span>New
+          </Link>
+        </nav>
       </div>
     </Fragment>
   );

@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { formatDate } from "../utils/helpers";
 import { handleAddQuestionAnswer } from "../actions/questions";
 import { handleAddUserAnswer } from "../actions/users";
+import { setNav } from "../actions/nav";
 import { useNavigate } from "react-router-dom";
 
 const Option = ({dispatch, id, option, text, timestamp}) => {
@@ -13,6 +14,7 @@ const Option = ({dispatch, id, option, text, timestamp}) => {
     dispatch(handleAddQuestionAnswer(id, option));
     dispatch(handleAddUserAnswer(id, option));
 
+    dispatch(setNav("home"));
     navigate("/");
   };
 
