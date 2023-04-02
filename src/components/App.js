@@ -1,9 +1,11 @@
 import { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
+import { setAuthedUser } from "../actions/authedUser";
+import { useState } from "react";
 import Dashboard from "./Dashboard";
 import LoadingBar from "react-redux-loading-bar";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, Navigate } from "react-router-dom";
 import Nav from "./Nav";
 import NewPoll from "./NewPoll";
 import Leaderboard from "./Leaderboard";
@@ -11,29 +13,35 @@ import Poll from "./Poll";
 import Login from "./Login";
 
 function App(props) {
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
     props.dispatch(handleInitialData()).then(() => {
-      const script1 = document.createElement("script");
-      script1.src = "assets/js/util.js";
-      script1.async = true;
-      document.body.appendChild(script1);
-
-      const script2 = document.createElement("script");
-      script2.src = "assets/js/main.js";
-      script2.async = true;
-      document.body.appendChild(script2);
-
-      return () => {
-        // clean up the script when the component in unmounted
-        document.body.removeChild(script1);
-        document.body.removeChild(script2);
-      };
+      setProgress(100);
     });
   }, []);
 
+  if (progress === 100) {
+    const script1 = document.createElement("script");
+    script1.src = "assets/js/util.js";
+    script1.async = true;
+    document.body.appendChild(script1);
+
+    const script2 = document.createElement("script");
+    script2.src = "assets/js/main.js";
+    script2.async = true;
+    document.body.appendChild(script2);
+  }
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    props.dispatch(setAuthedUser(null));
+  };
+
   return (
     <Fragment>
-      <LoadingBar />
+      <LoadingBar onLoaderFinished={() => setProgress(100)} />
 
       <div id="page-wrapper">
         {/* Header   */}
@@ -48,12 +56,25 @@ function App(props) {
         </section>
         <section id="main">
           <div className="container">
-            {props.loading === true ? (
+            {progress !== 100 ? null : (
               <Routes>
-                <Route path="/" exact element={<Login />} />
-              </Routes>
-            ) : (
-              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    props.loggedIn ? (
+                      <Dashboard />
+                    ) : (
+                      <Navigate replace to="/login" />
+                    )
+                  }
+                />
+                <Route
+                  path="/login"
+                  exact
+                  element={
+                    props.loggedIn ? <Navigate replace to="/" /> : <Login />
+                  }
+                />
                 <Route path="/" exact element={<Dashboard />} />
                 <Route path="/new" exact element={<NewPoll />} />
                 <Route path="/leaderboard" exact element={<Leaderboard />} />
@@ -75,6 +96,13 @@ function App(props) {
                     <li>
                       Design: <a href="http://html5up.net">HTML5 UP</a>
                     </li>
+                    {progress === 100 && props.loggedIn ? (
+                      <li>
+                        <a href="#" onClick={handleLogout}>
+                          Logout
+                        </a>
+                      </li>
+                    ) : null}
                   </ul>
                 </div>
               </div>
@@ -87,7 +115,7 @@ function App(props) {
 }
 
 const mapStateToProps = ({ authedUser }) => ({
-  loading: authedUser === null,
+  loggedIn: authedUser !== null,
 });
 
 export default connect(mapStateToProps)(App);
