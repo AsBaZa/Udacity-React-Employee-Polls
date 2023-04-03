@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { handleLogin } from "../actions/authedUser";
 import { setNav } from "../actions/nav";
 
-const Login = ({ dispatch, users, state }) => {
+const Login = ({ dispatch, users }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState("");
