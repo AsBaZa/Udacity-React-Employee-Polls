@@ -6,12 +6,13 @@ import { setNav } from "../actions/nav";
 import { useState } from "react";
 import Dashboard from "./Dashboard";
 import LoadingBar from "react-redux-loading-bar";
-import { Link, Routes, Route, Navigate } from "react-router-dom";
+import { Link, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Nav from "./Nav";
 import NewPoll from "./NewPoll";
 import Leaderboard from "./Leaderboard";
 import Poll from "./Poll";
 import Login from "./Login";
+import RequireAuth from "./RequiredAuth";
 
 function App(props) {
   const [progress, setProgress] = useState(0);
@@ -59,40 +60,20 @@ function App(props) {
               <Routes>
                 <Route
                   path="/"
-                  element={
-                    props.loggedIn ? (
-                      <Dashboard />
-                    ) : (
-                      <Navigate replace to="/login" />
-                    )
-                  }
+                  element={<RequireAuth children={<Dashboard />} nav="home" />}
                 />
                 <Route
                   path="/new"
-                  element={
-                    props.loggedIn ? (
-                      <NewPoll />
-                    ) : (
-                      <Navigate replace to="/login" />
-                    )
-                  }
+                  element={<RequireAuth children={<NewPoll />} nav="new" />}
                 />
                 <Route
                   path="/leaderboard"
-                  element={
-                    props.loggedIn ? (
-                      <Leaderboard />
-                    ) : (
-                      <Navigate replace to="/login" />
-                    )
-                  }
+                  element={<RequireAuth children={<Leaderboard />} nav="leaderboard" />}
                 />
                 <Route
                   path="/poll/:questionId"
-                  element={
-                    props.loggedIn ? <Poll /> : <Navigate replace to="/login" />
-                  }
-                />{" "}
+                  element={<RequireAuth children={<Poll />} nav="poll" />}
+                />
                 <Route
                   path="/login"
                   exact

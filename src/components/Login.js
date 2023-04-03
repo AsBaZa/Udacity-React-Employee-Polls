@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { handleLogin } from "../actions/authedUser";
 import { setNav } from "../actions/nav";
 
-const Login = ({ dispatch, users }) => {
+const Login = ({ dispatch, users, state }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,8 +28,12 @@ const Login = ({ dispatch, users }) => {
         alert("The User/Password is not correct!");
       } else {
         dispatch(handleLogin(user));
-        dispatch(setNav("home"));
-        navigate("/");
+        const nav =
+          location.state?.path === "/"
+            ? "home"
+            : location.state?.path.replace("/", "");
+        dispatch(setNav(nav));
+        navigate(location.state?.path || "/");
       }
     }
 
