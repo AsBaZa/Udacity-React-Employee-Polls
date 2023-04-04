@@ -51,6 +51,9 @@ function App(props) {
           <h1>
             <Link to="/">Employee Polls</Link>
           </h1>
+          {props.authedUser !== null ? (
+            <h3>Hello {props.authedUser}!</h3>
+          ) : null}
 
           {/* Nav */}
           <Nav />
@@ -158,6 +161,7 @@ function App(props) {
 
 const mapStateToProps = ({ authedUser }) => ({
   loggedIn: authedUser !== null,
+  authedUser,
 });
 
 export default connect(mapStateToProps)(App);
