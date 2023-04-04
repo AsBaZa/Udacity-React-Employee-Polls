@@ -6,7 +6,7 @@ import { setNav } from "../actions/nav";
 import { useState } from "react";
 import Dashboard from "./Dashboard";
 import LoadingBar from "react-redux-loading-bar";
-import { Link, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Link, Routes, Route, Navigate } from "react-router-dom";
 import Nav from "./Nav";
 import NewPoll from "./NewPoll";
 import Leaderboard from "./Leaderboard";
@@ -15,12 +15,12 @@ import Login from "./Login";
 import RequireAuth from "./RequiredAuth";
 import NotFound from "./NotFound";
 
-function App(props) {
+function App({dispatch, loggedIn, authedUser}) {
   const [progress, setProgress] = useState(0);
   const [modal, showModal] = useState(false);
 
   useEffect(() => {
-    props.dispatch(handleInitialData()).then(() => {
+    dispatch(handleInitialData()).then(() => {
       setProgress(100);
     });
   }, []);
@@ -36,8 +36,8 @@ function App(props) {
   const handleLogout = (e) => {
     e.preventDefault();
 
-    props.dispatch(setNav("login"));
-    props.dispatch(setAuthedUser(null));
+    dispatch(setNav("login"));
+    dispatch(setAuthedUser(null));
   };
 
   return (
@@ -51,8 +51,8 @@ function App(props) {
           <h1>
             <Link to="/">Employee Polls</Link>
           </h1>
-          {props.authedUser !== null ? (
-            <h3>Hello {props.authedUser}!</h3>
+          {authedUser !== null ? (
+            <h3>Hello {authedUser}!</h3>
           ) : null}
 
           {/* Nav */}
@@ -88,7 +88,7 @@ function App(props) {
                   path="/login"
                   exact
                   element={
-                    props.loggedIn ? <Navigate replace to="/" /> : <Login />
+                    loggedIn ? <Navigate replace to="/" /> : <Login />
                   }
                 />
               </Routes>
@@ -108,7 +108,7 @@ function App(props) {
                     <li>
                       Design: <a href="http://html5up.net">HTML5 UP</a>
                     </li>
-                    {progress === 100 && props.loggedIn ? (
+                    {progress === 100 && loggedIn ? (
                       <li>
                         <a href="#" onClick={handleLogout}>
                           Logout
