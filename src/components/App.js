@@ -13,6 +13,7 @@ import Leaderboard from "./Leaderboard";
 import Poll from "./Poll";
 import Login from "./Login";
 import RequireAuth from "./RequiredAuth";
+import NotFound from "./NotFound";
 
 function App(props) {
   const [progress, setProgress] = useState(0);
@@ -59,6 +60,10 @@ function App(props) {
             {progress !== 100 ? null : (
               <Routes>
                 <Route
+                  path="*"
+                  element={<RequireAuth children={<NotFound />} nav="404" />}
+                />
+                <Route
                   path="/"
                   element={<RequireAuth children={<Dashboard />} nav="home" />}
                 />
@@ -68,7 +73,9 @@ function App(props) {
                 />
                 <Route
                   path="/leaderboard"
-                  element={<RequireAuth children={<Leaderboard />} nav="leaderboard" />}
+                  element={
+                    <RequireAuth children={<Leaderboard />} nav="leaderboard" />
+                  }
                 />
                 <Route
                   path="/poll/:questionId"
