@@ -18,9 +18,16 @@ const Leaderboard = (props) => {
                   <th>Answered</th>
                   <th>Created</th>
                 </tr>
-                {props.users.map((user) => (
-                  <Summary user={user} key={user.id} />
-                ))}
+                {props.users
+                  .sort((a, b) =>
+                    a.questions.length + Object.keys(a.answers).length <
+                    b.questions.length + Object.keys(b.answers).length
+                      ? 1
+                      : -1
+                  )
+                  .map((user) => (
+                    <Summary user={user} key={user.id} />
+                  ))}
               </tbody>
             </table>
           </div>
