@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Option from "./Option";
 import { setNav } from "../actions/nav";
 import { useEffect } from "react";
+import NotFound from "./NotFound";
 
 const withRouter = (Component) => {
   const ComponentWithRouterProp = (props) => {
@@ -15,16 +16,24 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 
-const Poll = (props) => {
-  const { id, author, timestamp, optionOne, optionTwo } =
-    props.questions[props.questionId];
-  const user = props.users[author];
+const Poll = ({ questions, questionId, dispatch, users }) => {
+  const validQuestionId = Object.keys(questions).includes(questionId);
+  const { id, author, timestamp, optionOne, optionTwo } = validQuestionId
+    ? questions[questionId]
+    : {
+        id: null,
+        author: null,
+        timestamp: null,
+        optionOne: null,
+        optionTwo: null,
+      };
+  const user = users[author];
 
   useEffect(() => {
-    props.dispatch(setNav("poll"));
+    dispatch(setNav("poll"));
   }, []);
 
-  return (
+  return validQuestionId ? (
     <div className="row">
       <div className="col-12">
         <section>
@@ -69,6 +78,8 @@ const Poll = (props) => {
         </section>
       </div>
     </div>
+  ) : (
+    <NotFound />
   );
 };
 
