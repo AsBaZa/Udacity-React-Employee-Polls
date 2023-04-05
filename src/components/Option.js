@@ -2,8 +2,6 @@ import { connect } from "react-redux";
 import { formatDate } from "../utils/helpers";
 import { handleAddQuestionAnswer } from "../actions/questions";
 import { handleAddUserAnswer } from "../actions/users";
-import { setNav } from "../actions/nav";
-import { useNavigate } from "react-router-dom";
 
 const Option = ({
   dispatch,
@@ -14,20 +12,17 @@ const Option = ({
   questions,
   authedUser,
 }) => {
-  const navigate = useNavigate();
   const oppositeOption = option === "optionOne" ? "optionTwo" : "optionOne";
 
   const totalVotes = questions[id][option].votes.length;
   const totalOppositeVotes = questions[id][oppositeOption].votes.length;
+  const votes = questions[id][option].votes.join(", ");
 
   const handleSelectOption = (e) => {
     e.preventDefault();
 
     dispatch(handleAddQuestionAnswer(id, option));
     dispatch(handleAddUserAnswer(id, option));
-
-    dispatch(setNav("home"));
-    navigate("/");
   };
 
   return (
@@ -42,7 +37,15 @@ const Option = ({
               : null}
           </p>
         </header>
-        <p>Total votes: {totalVotes}</p>
+        {questions[id][option].votes.includes(authedUser) ||
+        questions[id][oppositeOption].votes.includes(authedUser) ? (
+          <p>
+            Total votes: {totalVotes} ({votes})
+          </p>
+        ) : (
+          <p>Total votes: {totalVotes}</p>
+        )}
+
         <p>
           Percentage of votes:{" "}
           {Math.round(
@@ -50,19 +53,22 @@ const Option = ({
           ) / 100}
           %
         </p>
-        <footer>
-          <ul className="actions">
-            <li>
-              <a
-                href="#"
-                className="button icon solid fa-file-alt"
-                onClick={handleSelectOption}
-              >
-                Select
-              </a>
-            </li>
-          </ul>
-        </footer>
+        {questions[id][option].votes.includes(authedUser) ||
+        questions[id][oppositeOption].votes.includes(authedUser) ? null : (
+          <footer>
+            <ul className="actions">
+              <li>
+                <a
+                  href="#"
+                  className="button icon solid fa-file-alt"
+                  onClick={handleSelectOption}
+                >
+                  Select
+                </a>
+              </li>
+            </ul>
+          </footer>
+        )}
       </section>
     </div>
   );
