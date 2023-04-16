@@ -1,5 +1,7 @@
 # Employee Polls Project
 
+[![repo-size](https://img.shields.io/github/repo-size/AsBaZa/Udacity-React-Employee-Polls?style=for-the-badge&logo=appveyor)](https://img.shields.io/github/repo-size/AsBaZa/Udacity-React-Employee-Polls?style=for-the-badge&logo=appveyor) 
+
 This is a  web app that lets an employee create polls for coworkers. Users will be able to answer polls, see which polls they haven’t answered, see how other people have voted, post polls, and see the ranking of users on the leaderboard.
 
 ## Getting Started
